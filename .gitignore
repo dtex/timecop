@@ -10,7 +10,6 @@ config.json
 .DS_Store
 
 pids
-logs
 results
 
 node_modules
