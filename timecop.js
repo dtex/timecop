@@ -7,8 +7,16 @@ var libxmljs = require("libxmljs"),
 	cronJob = require("cron").CronJob,
 	plates = require("plates"),
 	b64 = require("b64"),
+	daemon = require('daemon'),
 	xmlDoc, 
-	timecop = {};
+	timecop = {},
+	pid;
+	
+//
+// ### Run timecop as a deamon
+//
+pid = daemon.start('stdout.log', 'stderr.log');
+daemon.lock('/tmp/timecop.pid');
 
 //
 // ### Version 0.0.1
