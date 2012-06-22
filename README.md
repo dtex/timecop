@@ -83,11 +83,4 @@ This span will contain the number of hours that should have been billed by the e
     
 ## Running the app##
 	
-There are a few ways to run the application:
-
-No frills: At the command prompt type "node timecop". This will run the application, but it will stop running as soon as you close your console. This is fine for testing, but is not a long-term solution.
-
-Use nohup: At the command prompt type "nohup node timecop > output.log &". This will run the server in the background and any errors should be logged to output.log. 
-
-Use Forever: Forever will restart your application should something go wrong. Read more about [Forever](http://blog.nodejitsu.com/keep-a-nodejs-server-up-with-forever)
-
+Simply type "node timecop" from the command line. timecop will run itself as a daemon.
