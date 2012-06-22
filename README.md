@@ -5,7 +5,7 @@ A node app that will monitor Traffic Live via the API and send reminder texts/em
 
 Documented [source code](http://dtex.github.com/timecop/docs/timecop.html)
 
-# Getting Started #
+## Getting Started ##
 
 Grab the files from the [https://github.com/dtex/timecop/downloads](downloads) and unzip to the folder where you would like for timecop to reside.
 
@@ -38,8 +38,7 @@ jobs is an array of job objects. Each job object consists of:
 The array below equates to:
 * Every M-F at 8am notify users who are more than 8 hours behind
 * Every M-F at noon and 4pm notify users who are more than 20 hours behind
-* Every M-F at 8pm notify users who are more than 40 hours behind  
-
+* Every M-F at 8pm notify users who are more than 40 hours behind
 
     "jobs": [
         {
