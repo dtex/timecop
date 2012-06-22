@@ -23,7 +23,7 @@ The email address from Traffic that is associated with the token
 
 Enter your SMTP server details
 
-"smtp": {
+    "smtp": {
         "host": "smtp.sendgrid.net",
         "port": "587",
         "user": "********",
