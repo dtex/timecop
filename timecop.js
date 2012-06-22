@@ -15,7 +15,7 @@ var libxmljs = require("libxmljs"),
 //
 // ### Run timecop as a deamon
 //
-pid = daemon.start('stdout.log', 'stderr.log');
+pid = daemon.start('logs/stdout.log', 'logs/stderr.log');
 daemon.lock('/tmp/timecop.pid');
 
 //
