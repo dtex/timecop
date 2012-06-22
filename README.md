@@ -1,5 +1,5 @@
-Traffic-timecop
-===============
+timecop
+=======
 
 Will monitor Traffic Live via the API and send reminder texts/emails when a user has not entered their hours.
 
