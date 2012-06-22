@@ -65,7 +65,7 @@ templates is an object that contains all the templates used (currently only hour
         "hours": "<p><b>Hi <span id=\"name\"></span>, you have billed <span id=\"minutes\"></span> hours so far this month</b></p><p><span id=\"billable\"></span> of those were billable.</p><p>You should have billed <span id=\"available\"></span> hours by now.</p>"
     }
     
-This span will be populated the user's full name.
+This span will be populated with the user's full name.
 
     <span id=\"name\"></span> 
 
@@ -87,7 +87,7 @@ There are a few ways to run the application:
 
 No frills: At the command prompt type "node timecop". This will run the application, but it will stop running as soon as you close your console. This is fine for testing, but is not a long-term solution.
 
-Use nohup: At the comman prompt type "nohup node timecop > output.log &". This will run the server in the background and any errors should be logged to output.log. 
+Use nohup: At the command prompt type "nohup node timecop > output.log &". This will run the server in the background and any errors should be logged to output.log. 
 
 Use Forever: Forever will restart your application should something go wrong. Read more about [Forever](http://blog.nodejitsu.com/keep-a-nodejs-server-up-with-forever)
 
