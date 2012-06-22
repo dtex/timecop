@@ -223,7 +223,7 @@ manager.addJob('outputResults', {
 				useremail = user.find("employeeDetails/personalDetails/emailAddress")[0].text();
 			
 			// Only send email to users in the beta program
-			if (useremail === 'donovan@brandextract.com' || useremail === 'xsean@brandextract.com') {
+			if (useremail === 'donovan@brandextract.com' || useremail === 'sburnett@brandextract.com' || useremail === 'bo@brandextract.com' || useremail === 'sean@brandextract.com') {
 				// If this user has billed any time, and that time exceeds maxGap hours 
 				if (Number(minutes[0].text()) > 0 && (Number(available[0].text())/60.0 - Number(minutes[0].text())/60.0 > timecop.maxGap)) {
 					
