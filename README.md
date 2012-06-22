@@ -40,6 +40,7 @@ The array below equates to:
 * Every M-F at noon and 4pm notify users who are more than 20 hours behind
 * Every M-F at 8pm notify users who are more than 40 hours behind
 
+Code
      "jobs": [
         {
             "schedule": "00 00 08 * * 2-6",
