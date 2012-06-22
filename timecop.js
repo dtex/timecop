@@ -2,12 +2,13 @@ var libxmljs = require("libxmljs"),
 	neuron = require('neuron'),
 	utile = require('utile'),
 	nconf = require('nconf'),
-	xmlDoc, 
 	https = require('https'),
-	timecop = {},
 	nodemailer = require("nodemailer"),
 	cronJob = require("cron").CronJob,
-	plates = require("plates");
+	plates = require("plates"),
+	b64 = require("b64"),
+	xmlDoc, 
+	timecop = {};
 
 //
 // ### Version 0.0.1
@@ -18,7 +19,7 @@ timecop.version = [0, 0, 1];
 nconf.file({ file: './config.json' });
 
 // This is the default value for the max # of hours the user can fall behind before being notified.
-timecop.maxGap = nconf.get("defaultMaxGap");
+timecop.maxGap = 0;
 
 var manager = new neuron.JobManager();
 
@@ -37,7 +38,7 @@ manager.addJob('checkHours', {
 			host: "production-sohnar.apigee.com", 
 			headers: {
 				"Accept": "application/xml", 
-				"Authorization": "Basic " + nconf.get("apiToken")},
+				"Authorization": "Basic " + b64.encode(nconf.get("email")+":"+nconf.get("apiToken"))},
 				// If you have more than 500 employees change this. We have less than 50 so we haven't tested on bigger installs.
 				"path": "/TrafficLiteServer/openapi/staff/employee?windowSize=500",
 				"port": 443,
@@ -122,14 +123,14 @@ manager.addJob('getTimeEntries', {
 });
 
 //
-// ### Get all teh time entries for this day
+// ### Get all the time entries for this day
 //
 manager.addJob('getDay', {
 	work: function ( day ) {
 		var now = new Date(),
 			self = this;
 		// Request all the time entries for this day (max=999). If your company has more than 999 time entries per day open an issue on github and we'll think about it.
-		var req = https.request({host: "production-sohnar.apigee.com", headers: {"Accept": "application/xml", "Authorization": "Basic " + nconf.get("apiToken")},path: "/TrafficLiteServer/openapi/timeentries?startDate=" + now.getFullYear() + "-" + timecop.twoDigit(now.getMonth()+1) + "-" + timecop.twoDigit(day) + "&endDate=" + now.getFullYear() + "-" + timecop.twoDigit(now.getMonth()+1) + "-" + timecop.twoDigit(day + 1) +"&windowSize=999",port:443,method:'GET'}, 
+		var req = https.request({host: "production-sohnar.apigee.com", headers: {"Accept": "application/xml", "Authorization": "Basic " + b64.encode(nconf.get("email")+":"+nconf.get("apiToken")) },path: "/TrafficLiteServer/openapi/timeentries?startDate=" + now.getFullYear() + "-" + timecop.twoDigit(now.getMonth()+1) + "-" + timecop.twoDigit(day) + "&endDate=" + now.getFullYear() + "-" + timecop.twoDigit(now.getMonth()+1) + "-" + timecop.twoDigit(day + 1) +"&windowSize=999",port:443,method:'GET'}, 
 			function(res) {
 				
 				var body = '',

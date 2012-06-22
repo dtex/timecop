@@ -2,19 +2,11 @@
 	"name": "timecop",
 	"description": "Monitors Traffic Live installs for users who are not caught up on their time entries and notifies them via email.",
 	"version": "0.0.1",
+	"main": "./timecop.js",
+	"homepage": "http://www.github.com/dtex/timecop",
 	"author": {
 		"name": "dtex",
 		"email": "donovan@donovan.bz"  
-	},
-	"maintainers": [
-		{
-			"name": "dtex",
-			"email": "donovan@donovan.bz"
-		}
-	],
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/dtex/timecop.git"
 	},
 	"keywords": [
 		"traffic",
@@ -27,14 +19,7 @@
 		"nconf": "0.6.0",
 		"nodemailer": "0.3.20",
 		"cron": "0.3.3",
+		"b64": "1.0.1",
 		"plates": "0.4.6"
-	},
-	"main": "./traffic",
-	"engines": {
-		"node": ">= 0.6.18"
-	},
-	"_npmUser": {
-		"name": "dtex",
-		"email": "donovan@donovan.bz"
 	}
 }
