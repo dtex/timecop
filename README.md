@@ -35,10 +35,10 @@ jobs is an array of job objects. Each job object consists of:
  type: Currently the only valid value is checkHours. We may add more types later,
  maxGap: The maximum allowable number of hours a user may fall bahind.
   
- The array below equates to:
-  *Every M-F at 8am notify users who are more than 8 hours behind
-  *Every M-F at noon and 4pm notify users who are more than 20 hours behind
-  *Every M-F at 8pm notify users who are more than 40 hours behind  
+The array below equates to:
+* Every M-F at 8am notify users who are more than 8 hours behind
+* Every M-F at noon and 4pm notify users who are more than 20 hours behind
+* Every M-F at 8pm notify users who are more than 40 hours behind  
  
     "jobs": [
         {
