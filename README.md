@@ -1,4 +1,4 @@
-timecop
-=======
+Traffic-timecop
+===============
 
-Monitors Traffic Live to see if users have entered their time. If they are behind, a reminder email will be sent
+Will monitor Traffic Live via the API and send reminder texts/emails when a user has not entered their hours.
