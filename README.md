@@ -11,6 +11,7 @@ Grab the files from the [https://github.com/dtex/timecop/downloads](downloads) a
 
 From the command line run "npm install" from the folder.
 
+##Configure your install##
 Rename sample-config.json to config.json and edit as described below.
 
 Enter your apiToken here
@@ -34,13 +35,6 @@ jobs is an array of job objects. Each job object consists of:
  schedule: a [cron formatted](http://www.nncron.ru/help/EN/working/cron-format.htm) string,
  type: Currently the only valid value is checkHours. We may add more types later,
  maxGap: The maximum allowable number of hours a user may fall bahind.
-  
-The array below equates to:
-* Every M-F at 8am notify users who are more than 8 hours behind
-* Every M-F at noon and 4pm notify users who are more than 20 hours behind
-* Every M-F at 8pm notify users who are more than 40 hours behind
-
-Code
 
      "jobs": [
         {
@@ -59,17 +53,35 @@ Code
             "maxGap": 40
         }
     ],
-		
-templates is an object that contains all the templates used (currently only hours for jobs.type checkHours). This is the template for the email that will be sent to users.
-* <span id=\"name\"></span> will contain the users full name.
-* <span id=\"minutes\"></span> will contain the number of hours billed so far.
-* <span id=\"billable\"></span> will contain the number of billable hours billed so far.
-* <span id=\"available\"></span> will contain the number of hours that should have been billed by the end of the previous day.
 
+This example equates to:
+* Every M-F at 8am notify users who are more than 8 hours behind
+* Every M-F at noon and 4pm notify users who are more than 20 hours behind
+* Every M-F at 8pm notify users who are more than 40 hours behind
+	
+templates is an object that contains all the templates used (currently only hours for jobs.type checkHours). This is the template for the email that will be sent to users.
 
     "templates": {
         "hours": "<p><b>Hi <span id=\"name\"></span>, you have billed <span id=\"minutes\"></span> hours so far this month</b></p><p><span id=\"billable\"></span> of those were billable.</p><p>You should have billed <span id=\"available\"></span> hours by now.</p>"
     }
+    
+This span will be populated the user's full name.
+
+    <span id=\"name\"></span> 
+
+This span will contain the number of hours billed so far.
+
+    <span id=\"minutes\"></span>
+
+This span will contain the number of billable hours billed so far.
+
+    <span id=\"billable\"></span>
+
+This span will contain the number of hours that should have been billed by the end of the previous day.
+    
+    <span id=\"available\"></span>
+    
+## Running the app##
 	
 There are a few ways to run the application:
 
