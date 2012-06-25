@@ -232,8 +232,8 @@ manager.addJob('outputResults', {
 				available = user.find("available"),
 				useremail = user.find("employeeDetails/personalDetails/emailAddress")[0].text();
 			
-			// Only send email to users in the beta program
-			if (useremail === 'donovan@brandextract.com' || useremail === 'xsburnett@brandextract.com' || useremail === 'xbo@brandextract.com' || useremail === 'xsean@brandextract.com') {
+			// If we are in test mode, only send email to the API user
+			if (nconf.get("mode") !== "test" || useremail === nconf.get("email")) {
 				// If this user has billed any time, and that time exceeds maxGap hours 
 				if (Number(minutes[0].text()) > 0 && (Number(available[0].text())/60.0 - Number(minutes[0].text())/60.0 > timecop.maxGap)) {
 					
@@ -249,9 +249,9 @@ manager.addJob('outputResults', {
 					
 					// Create email
 					var mailOptions = {
-					    from: "Timecop ✔ <no-reply@brandextract.com>",
+					    from: nconf.get("smtp:from"),
 					    to: useremail,
-					    subject: "Ketchup! " + now.toString(),
+					    subject: nconf.get("smtp:subject") + " " + now.toString(),
 					    text: output,
 					    html: output,
 					    headers: {"X-SMTPAPI": {"category": "Timecop"}}
