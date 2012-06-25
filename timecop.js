@@ -13,18 +13,20 @@ var libxmljs = require("libxmljs"),
 	pid;
 	
 //
-// ### Run timecop as a deamon
-//
-pid = daemon.start('./logs/stdout.log', './logs/stderr.log');
-daemon.lock('/tmp/timecop.pid');
-
-//
 // ### Version 0.0.1
 //
 timecop.version = [0, 0, 1];
 
 // load our config file
-nconf.file({ file: './config.json' });
+nconf.argv().file({ file: './config.json' });
+
+//
+// ### Run timecop as a deamon
+//
+if (nconf.get('mode') === "daemon") {
+	pid = daemon.start('./timecop_logs/stdout.log', './timecop_logs/stderr.log');
+	daemon.lock('/tmp/timecop.pid');
+}
 
 // This is the default value for the max # of hours the user can fall behind before being notified.
 timecop.maxGap = 0;
@@ -231,7 +233,7 @@ manager.addJob('outputResults', {
 				useremail = user.find("employeeDetails/personalDetails/emailAddress")[0].text();
 			
 			// Only send email to users in the beta program
-			if (useremail === 'donovan@brandextract.com' || useremail === 'sburnett@brandextract.com' || useremail === 'bo@brandextract.com' || useremail === 'sean@brandextract.com') {
+			if (useremail === 'donovan@brandextract.com' || useremail === 'xsburnett@brandextract.com' || useremail === 'xbo@brandextract.com' || useremail === 'xsean@brandextract.com') {
 				// If this user has billed any time, and that time exceeds maxGap hours 
 				if (Number(minutes[0].text()) > 0 && (Number(available[0].text())/60.0 - Number(minutes[0].text())/60.0 > timecop.maxGap)) {
 					
@@ -309,3 +311,10 @@ utile.each(jobs, function(job, key, obj) {
 	    }, null, true
 	);
 });
+
+//
+// ## If the user passed --mode test then run a test immediately
+//
+if (nconf.get('mode') === "test") {
+	manager.enqueue('checkHours', nconf, 8);
+}
