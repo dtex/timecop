@@ -5,6 +5,8 @@ A node app that will monitor Traffic Live via the API and send reminder texts/em
 
 Documented [source code](http://dtex.github.com/timecop/docs/timecop.html)
 
+I have only tested in node 0.6.18 (node 0.8 was announced about 30 second after I decided this was ready for other eyes... no lie)
+
 ## Getting Started ##
 
 Grab the files from the [https://github.com/dtex/timecop/downloads](downloads) and unzip to the folder where you would like for timecop to reside.
@@ -83,4 +85,8 @@ This span will contain the number of hours that should have been billed by the e
     
 ## Running the app##
 	
-Simply type "node timecop" from the command line. timecop will run itself as a daemon.
+From the command line run "node timecop". Node will run as a process until the current terminal session has ended.
+
+Running "node timecop --mode test" will do the same, but will trigger an immediate time check with a maxGap of 8, regardless od the schedule.
+
+Running "node timecop --mode daemon" will run timecop as a daemon so that it stays running even after the current terminal session has ended. It will NOT restart timecop if timecop or the server crashes for some reason.
