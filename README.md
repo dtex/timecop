@@ -5,7 +5,9 @@ A node app that will monitor Traffic Live via the API and send reminder texts/em
 
 Documented [source code](http://dtex.github.com/timecop/docs/timecop.html)
 
-I have only tested in node 0.6.18 (node 0.8 was announced about 30 second after I decided this was ready for other eyes... no lie)
+I have only tested in node 0.6.18
+
+<font color="red">We're definitely not working in node 0.8.x just yet!</font>
 
 ## Getting Started ##
 
@@ -71,7 +73,7 @@ Be sure to check the system time where timecop will be running. I spent more tim
 	
 ### Email Templates ###
 
-templates is an object that contains all the templates used (currently only hours for jobs.type checkHours). This is the template for the email that will be sent to users.
+templates is an object that contains all the templates used (currently only hours for jobs.type checkHours). This is the template for the email that will be sent to users. Feel free to make it as fancy as you like.
 
     "templates": {
         "hours": "<p><b>Hi <span id=\"name\"></span>, you have billed <span id=\"minutes\"></span> hours so far this month</b></p><p><span id=\"billable\"></span> of those were billable.</p><p>You should have billed <span id=\"available\"></span> hours by now.</p>"
