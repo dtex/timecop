@@ -16,13 +16,17 @@ From the command line run "npm install" from the folder.
 ##Configure your install##
 Rename sample-config.json to config.json and edit as described below.
 
-Enter your apiToken here
+### API Configuration ###
+
+Enter your Traffic Live apiToken here
 
     "apiToken": "*********************",
 
 The email address from Traffic that is associated with the token
 
     "email": "apiuser@yourcommpany.com",
+
+### SMTP Configuration ###
 
 Enter your SMTP server details
 
@@ -32,6 +36,8 @@ Enter your SMTP server details
         "user": "********",
         "pass": "********"
     },
+
+### Job Scheduling ###
 		
 jobs is an array of job objects. Each job object consists of:
  schedule: a [cron formatted](http://www.nncron.ru/help/EN/working/cron-format.htm) string,
@@ -60,7 +66,11 @@ This example equates to:
 * Every M-F at 8am notify users who are more than 8 hours behind
 * Every M-F at noon and 4pm notify users who are more than 20 hours behind
 * Every M-F at 8pm notify users who are more than 40 hours behind
+
+Be sure to check the system time where timecop will be running. I spent more time than I care to admit debugging the job scheduler when it turned out that the system time was just wrong.
 	
+### Email Templates ###
+
 templates is an object that contains all the templates used (currently only hours for jobs.type checkHours). This is the template for the email that will be sent to users.
 
     "templates": {
@@ -83,7 +93,7 @@ This span will contain the number of hours that should have been billed by the e
     
     <span id=\"available\"></span>
     
-## Running the app##
+## Running the app ##
 	
 From the command line run "node timecop". Node will run as a process until the current terminal session has ended.
 
