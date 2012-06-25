@@ -6,7 +6,9 @@
 		"host": "smtp.sendgrid.net",
 		"port": "587",
 		"user": "no-reply@yourcompany.com",
-		"pass": "********"
+		"pass": "********",
+		"from": "Timecop ✔ <no-reply@yourcompany.com>",
+		"subject": "Ketchup!"
 	},
 	"jobs": [
 		{
