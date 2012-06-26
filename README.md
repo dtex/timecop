@@ -11,9 +11,9 @@ I have only tested in node 0.6.18
 
 ## Getting Started ##
 
-You'll need node.js of course. Get it from [http://nodejs.org](nodejs.com).
+You'll need node.js of course. Get it from [nodejs.com](http://nodejs.org).
 
-Grab the timecop files from the [https://github.com/dtex/timecop/downloads](downloads) and unzip to the folder where you would like for timecop to reside.
+Grab the timecop files from the [downloads](https://github.com/dtex/timecop/downloads) and unzip to the folder where you would like for timecop to reside.
 
 From the command line run "npm install" inside the timecop folder.
 
