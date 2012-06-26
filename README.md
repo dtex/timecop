@@ -11,11 +11,14 @@ I have only tested in node 0.6.18
 
 ## Getting Started ##
 
-Grab the files from the [https://github.com/dtex/timecop/downloads](downloads) and unzip to the folder where you would like for timecop to reside.
+You'll need node.js of course. Get it from [http://nodejs.org](nodejs.com).
 
-From the command line run "npm install" from the folder.
+Grab the timecop files from the [https://github.com/dtex/timecop/downloads](downloads) and unzip to the folder where you would like for timecop to reside.
+
+From the command line run "npm install" inside the timecop folder.
 
 ##Configure your install##
+
 Rename sample-config.json to config.json and edit as described below.
 
 ### API Configuration ###
