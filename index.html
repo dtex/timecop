@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Timecop : Monitors Traffic Live to see if users have entered their time. If they are behind, a reminder email will be sent" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Timecop</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/dtex/timecop">View on GitHub</a>
+
+          <h1 id="project_title">Timecop</h1>
+          <h2 id="project_tagline">Monitors Traffic Live to see if users have entered their time. If they are behind, a reminder email will be sent</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/dtex/timecop/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/dtex/timecop/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>timecop.js</h1>
+
+<p>A node app that will monitor Traffic Live via the API and send reminder emails when a user has not entered their hours.</p>
+
+<p>Documented <a href="http://dtex.github.com/timecop/docs/timecop.html">source code</a></p>
+
+<p>I have only tested in node 0.6.18</p>
+
+<h3>We're definitely not working in node 0.8.x just yet!</h3>
+
+<h2>Getting Started</h2>
+
+<p>You'll need node.js of course. Get it from <a href="http://nodejs.org">nodejs.org</a>.</p>
+
+<p>You'll need libxml installed. Get it from <a href="http://www.xmlsoft.org/downloads.html">xmlsoft.org</a>.</p>
+
+<p>Grab the timecop files from the <a href="https://github.com/dtex/timecop/downloads">downloads</a> and unzip to the folder where you would like for timecop to reside.</p>
+
+<p>From the command line run "npm install" inside the timecop folder.</p>
+
+<h2>Configure your install</h2>
+
+<p>Rename sample-config.json to config.json and edit as described below.</p>
+
+<h3>API Configuration</h3>
+
+<p>Enter your Traffic Live apiToken here</p>
+
+<pre><code>"apiToken": "*********************",
+</code></pre>
+
+<p>The email address from Traffic that is associated with the token</p>
+
+<pre><code>"email": "apiuser@yourcommpany.com",
+</code></pre>
+
+<h3>SMTP Configuration</h3>
+
+<p>Enter your SMTP server details</p>
+
+<pre><code>"smtp": {
+    "host": "smtp.sendgrid.net",
+    "port": "587",
+    "user": "********",
+    "pass": "********"
+},
+</code></pre>
+
+<h3>Job Scheduling</h3>
+
+<p>jobs is an array of job objects. Each job object consists of:
+ schedule: a <a href="http://www.nncron.ru/help/EN/working/cron-format.htm">cron formatted</a> string,
+ type: Currently the only valid value is checkHours. We may add more types later,
+ maxGap: The maximum allowable number of hours a user may fall bahind.</p>
+
+<pre><code> "jobs": [
+    {
+        "schedule": "00 00 08 * * 2-6",
+        "type": "checkHours",
+        "maxGap": 8
+    },
+    {
+        "schedule": "00 00 [12,16] * * 2-6",
+        "type": "checkHours",
+        "maxGap": 20
+    },
+    {
+        "schedule": "00 00 20 * * 2-6",
+        "type": "checkHours",
+        "maxGap": 40
+    }
+],
+</code></pre>
+
+<p>This example equates to:</p>
+
+<ul>
+<li>Every M-F at 8am notify users who are more than 8 hours behind</li>
+<li>Every M-F at noon and 4pm notify users who are more than 20 hours behind</li>
+<li>Every M-F at 8pm notify users who are more than 40 hours behind</li>
+</ul><p>Be sure to check the system time where timecop will be running. I spent more time than I care to admit debugging the job scheduler when it turned out that the system time was just wrong.</p>
+
+<h3>Email Templates</h3>
+
+<p>templates is an object that contains all the templates used (currently only hours for jobs.type checkHours). This is the template for the email that will be sent to users. Feel free to make it as fancy as you like.</p>
+
+<pre><code>"templates": {
+    "hours": "&lt;p&gt;&lt;b&gt;Hi &lt;span id=\"name\"&gt;&lt;/span&gt;, you have billed &lt;span id=\"minutes\"&gt;&lt;/span&gt; hours so far this month&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span id=\"billable\"&gt;&lt;/span&gt; of those were billable.&lt;/p&gt;&lt;p&gt;You should have billed &lt;span id=\"available\"&gt;&lt;/span&gt; hours by now.&lt;/p&gt;"
+}
+</code></pre>
+
+<p>This span will be populated with the user's full name.</p>
+
+<pre><code>&lt;span id=\"name\"&gt;&lt;/span&gt; 
+</code></pre>
+
+<p>This span will contain the number of hours billed so far.</p>
+
+<pre><code>&lt;span id=\"minutes\"&gt;&lt;/span&gt;
+</code></pre>
+
+<p>This span will contain the number of billable hours billed so far.</p>
+
+<pre><code>&lt;span id=\"billable\"&gt;&lt;/span&gt;
+</code></pre>
+
+<p>This span will contain the number of hours that should have been billed by the end of the previous day.</p>
+
+<pre><code>&lt;span id=\"available\"&gt;&lt;/span&gt;
+</code></pre>
+
+<h2>Running the app</h2>
+
+<p>From the command line run "node timecop". Node will run as a process until the current terminal session has ended.</p>
+
+<p>Running "node timecop --mode test" will do the same, but will trigger an immediate time check with a maxGap of 8, regardless of the schedule and will only send an email to the Traffic API user (not to all users).</p>
+
+<p>Running "node timecop --mode daemon" will run timecop as a daemon so that it stays running even after the current terminal session has ended. It will NOT restart timecop if timecop or the server crashes for some reason.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Timecop maintained by <a href="https://github.com/dtex">dtex</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
